@@ -53,11 +53,10 @@ exports.config = {
     //
     capabilities: [{
         platformName: 'Android',
-        'appium:deviceName': 'Google Pixel 7',   // dispositivo con el Reloj de Google
+        'appium:deviceName': 'Google Pixel 7',
         'appium:platformVersion': '13.0',
         'appium:automationName': 'UiAutomator2',
-        'appium:appPackage': 'com.google.android.deskclock',
-        'appium:appActivity': 'com.android.deskclock.DeskClock',
+        'appium:app': 'WikiDemo',
         'bstack:options': {
             projectName: 'Alarmas',
             buildName: 'jenkins-build',
