@@ -1,19 +1,10 @@
 pipeline {
     agent any
-
-    tools {
-        nodejs 'NodeJS'
-    }
-
-    environment {
-        BROWSERSTACK_USERNAME = credentials('browserstack-username')
-        BROWSERSTACK_ACCESS_KEY = credentials('browserstack-access-key')
-    }
+    tools { nodejs 'NodeJS' }
 
     stages {
         stage('Build dependencies') {
             steps {
-                echo 'Instalando dependencias...'
                 sh 'npm ci'
             }
         }
@@ -21,7 +12,6 @@ pipeline {
         stage('Ejecutar Pruebas en BrowserStack') {
             steps {
                 browserstack(credentialsId: 'browserstack-credentials') {
-                    sh 'npm ci'
                     sh 'npx wdio run wdio.conf.js'
                 }
             }
