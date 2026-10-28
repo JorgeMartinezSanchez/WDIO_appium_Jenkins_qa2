@@ -21,13 +21,11 @@ exports.config = {
         'appium:deviceName': 'Google Pixel 7',
         'appium:platformVersion': '13.0',
         'appium:automationName': 'UiAutomator2',
-
-        // APK cargado por Jenkins
-        app: process.env.BROWSERSTACK_APP_ID,
+        'appium:app': process.env.BROWSERSTACK_APP_ID,
 
         'bstack:options': {
             projectName: 'Alarmas',
-            buildName: 'jenkins-build'
+            buildName: process.env.BROWSERSTACK_BUILD_NAME || 'jenkins-build'
         }
     }],
 
