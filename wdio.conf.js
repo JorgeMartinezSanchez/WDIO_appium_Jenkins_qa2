@@ -6,6 +6,10 @@ exports.config = {
     // WebdriverIO supports running e2e tests as well as unit and component tests.
     runner: 'local',
     port: 4723,
+
+    user: process.env.BROWSERSTACK_USERNAME,
+    key: process.env.BROWSERSTACK_ACCESS_KEY,
+    hostname: 'hub.browserstack.com',
     //
     // ==================
     // Specify Test Files
@@ -51,15 +55,11 @@ exports.config = {
     // https://saucelabs.com/platform/platform-configurator
     //
     capabilities: [{
-        // capabilities for local Appium web tests on an Android Emulator
-        platformName: 'Android',
-        "appium:deviceName": "emulator-5554",          // nombre de tu emulador (adb devices)
-        "appium:platformVersion": "17",              // versión Android
-        "appium:automationName": "UiAutomator2",
-        "appium:appPackage": "com.google.android.deskclock",  // paquete de la app de Reloj
-        "appium:appActivity": "com.android.deskclock.DeskClock", // actividad principal
-        "appium:newCommandTimeout": 3000,
-        "appium:autoGrantPermissions": true
+        'bstack:options': {
+            deviceName: 'Samsung Galaxy S22 Ultra',
+            platformVersion: '12.0',
+            platformName: 'android',
+        }
     }],
 
     //
@@ -109,7 +109,12 @@ exports.config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: ['appium'],
+    services: [
+        ['browserstack', {
+            app: 'bs://<YOUR_APP_ID>', // Upload your APK and paste the ID here
+            browserstackLocal: false,
+        }]
+    ],
 
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
