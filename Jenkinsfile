@@ -1,15 +1,29 @@
+
 pipeline {
     agent any
-    tools { nodejs 'NodeJS' }
+
+    tools {
+        nodejs 'NodeJS'
+    }
 
     stages {
-        stage('Build dependencies') {
+        stage('Instalar dependencias') {
             steps {
                 sh 'npm ci'
             }
         }
 
-        stage('Ejecutar Pruebas en BrowserStack') {
+        stage('Subir APK a BrowserStack') {
+            steps {
+                browserstack(credentialsId: 'browserstack-credentials') {
+                    browserstackAppUploader(
+                        appPath: 'app/clock.apk'
+                    )
+                }
+            }
+        }
+
+        stage('Ejecutar pruebas en BrowserStack') {
             steps {
                 browserstack(credentialsId: 'browserstack-credentials') {
                     sh 'npx wdio run wdio.conf.js'
@@ -20,14 +34,14 @@ pipeline {
 
     post {
         always {
-            echo 'Generando y publicando el reporte de Allure...'
+            echo 'Generando el reporte de Allure...'
+
             allure([
                 includeProperties: false,
                 jdk: '',
                 properties: [],
                 reportBuildPolicy: 'ALWAYS',
-                // Ruta corregida para un proyecto Node.js
-                results: [[path: 'allure-results']] 
+                results: [[path: 'allure-results']]
             ])
         }
     }
