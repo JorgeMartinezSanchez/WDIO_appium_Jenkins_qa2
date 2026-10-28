@@ -10,6 +10,14 @@ export const config = {
     exclude: [],
     
     capabilities: [{
+<<<<<<< HEAD
+=======
+        platformName: 'Android',
+        'appium:deviceName': 'Google Pixel 7',
+        'appium:platformVersion': '13.0',
+        'appium:automationName': 'UiAutomator2',
+        'appium:app': 'WikiDemo',
+>>>>>>> 9640d25e (Apk preinstalada en browserstack)
         'bstack:options': {
             osVersion: '14.0',
             deviceName: 'Google Pixel 8',
