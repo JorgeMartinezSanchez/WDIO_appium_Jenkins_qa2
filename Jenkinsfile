@@ -20,8 +20,10 @@ pipeline {
 
         stage('Ejecutar Pruebas en BrowserStack') {
             steps {
-                echo 'Initializing tests in WDIO with BrowserStack'
-                sh 'npx wdio run wdio.conf.js'
+                browserstack(credentialsId: 'browserstack-credentials') {
+                    sh 'npm ci'
+                    sh 'npx wdio run wdio.conf.js'
+                }
             }
         }
     }
