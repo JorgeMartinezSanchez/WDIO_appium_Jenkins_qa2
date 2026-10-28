@@ -5,11 +5,9 @@ exports.config = {
     // ====================
     // WebdriverIO supports running e2e tests as well as unit and component tests.
     runner: 'local',
-    port: 4723,
 
     user: process.env.BROWSERSTACK_USERNAME,
     key: process.env.BROWSERSTACK_ACCESS_KEY,
-    hostname: 'hub.browserstack.com',
     //
     // ==================
     // Specify Test Files
@@ -25,9 +23,8 @@ exports.config = {
     // The path of the spec files will be resolved relative from the directory of
     // of the config file unless it's absolute.
     //
-    specs: [
-        './test/specs/**/*.js'
-    ],
+    specs: ['./test/specs/**/*.js'],
+    maxInstances: 1,
     // Patterns to exclude.
     exclude: [
         // 'path/to/excluded/files'
@@ -55,10 +52,16 @@ exports.config = {
     // https://saucelabs.com/platform/platform-configurator
     //
     capabilities: [{
+        platformName: 'Android',
+        'appium:deviceName': 'Samsung Galaxy S22 Ultra',
+        'appium:platformVersion': '12.0',
+        'appium:automationName': 'UiAutomator2',
+        // Para el Reloj nativo:
+        'appium:appPackage': 'com.google.android.deskclock',
+        'appium:appActivity': 'com.android.deskclock.DeskClock',
         'bstack:options': {
-            deviceName: 'Samsung Galaxy S22 Ultra',
-            platformVersion: '12.0',
-            platformName: 'android',
+            projectName: 'Alarmas',
+            buildName: 'jenkins-build',
         }
     }],
 
@@ -111,7 +114,6 @@ exports.config = {
     // commands. Instead, they hook themselves up into the test process.
     services: [
         ['browserstack', {
-            app: 'bs://<YOUR_APP_ID>', // Upload your APK and paste the ID here
             browserstackLocal: false,
         }]
     ],
@@ -137,7 +139,7 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec'],
+    reporters: ['spec', ['allure', { outputDir: 'allure-results' }]],
 
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
