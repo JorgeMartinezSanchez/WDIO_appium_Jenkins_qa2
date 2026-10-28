@@ -53,10 +53,9 @@ exports.config = {
     //
     capabilities: [{
         platformName: 'Android',
-        'appium:deviceName': 'Samsung Galaxy S22 Ultra',
-        'appium:platformVersion': '12.0',
+        'appium:deviceName': 'Google Pixel 7',   // dispositivo con el Reloj de Google
+        'appium:platformVersion': '13.0',
         'appium:automationName': 'UiAutomator2',
-        // Para el Reloj nativo:
         'appium:appPackage': 'com.google.android.deskclock',
         'appium:appActivity': 'com.android.deskclock.DeskClock',
         'bstack:options': {
