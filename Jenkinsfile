@@ -1,21 +1,26 @@
 pipeline {
     agent any
-
-    environment {
-        BROWSERSTACK_USERNAME = credentials('browserstack-username-id')
-        BROWSERSTACK_ACCESS_KEY = credentials('browserstack-access-key-id')
-    }
-
     stages {
-        stage('Instalar Dependencias') {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Install Dependencies') {
             steps {
                 sh 'npm install'
             }
         }
-        stage('Ejecutar Pruebas WDIO en BrowserStack') {
+        stage('Run WDIO Tests') {
             steps {
-                // Ejecuta WebdriverIO utilizando el servicio de BrowserStack configurado
-                sh 'npx wdio run wdio.conf.js'
+                // Inject the credentials into environment variables
+                withCredentials([
+                    string(credentialsId: 'browserstack-username', variable: 'BROWSERSTACK_USERNAME'),
+                    string(credentialsId: 'browserstack-access-key', variable: 'BROWSERSTACK_KEY')
+                ]) {
+                    // Run your WebdriverIO script
+                    sh 'npm run wdio'
+                }
             }
         }
     }
