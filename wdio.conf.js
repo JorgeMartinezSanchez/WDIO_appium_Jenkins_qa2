@@ -58,10 +58,15 @@ exports.config = {
         'appium:deviceName': 'Google Pixel 7',
         'appium:platformVersion': '13.0',
         'appium:automationName': 'UiAutomator2',
-        'appium:app': 'bs://sample.wikipedia.app',
+        // Usar la URL pública directa del APK estable de Wikipedia
+        'appium:app': 'https://releases.wikimedia.org/android/wikipedia/1.4.203-r-2024-03-04/wikipedia-1.4.203-r-2024-03-04.apk',
+        
         'bstack:options': {
             projectName: 'Alarmas',
-            buildName: 'jenkins-build',
+            buildName: process.env.BROWSERSTACK_BUILD_NAME || 'jenkins-build',
+            sessionName: 'Wikipedia E2E Test',
+            userName: process.env.BROWSERSTACK_USERNAME,
+            accessKey: process.env.BROWSERSTACK_ACCESS_KEY
         }
     }],
 
