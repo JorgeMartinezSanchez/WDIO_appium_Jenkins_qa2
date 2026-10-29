@@ -3,6 +3,13 @@ pipeline {
     tools { nodejs 'NodeJS' }
 
     stages {
+        stage('Checkout Code') {
+            steps {
+                // Clonas tu repositorio de pruebas WebdriverIO
+                checkout scm
+            }
+        }
+
         stage('Build dependencies') {
             steps {
                 sh 'npm ci'
