@@ -59,7 +59,7 @@ exports.config = {
         'appium:platformVersion': '13.0',
         'appium:automationName': 'UiAutomator2',
         // Usar la URL pública directa del APK estable de Wikipedia
-        'appium:app': 'bs://wikipediaApp',
+        'appium:app': 'bs://2ef4d92065a5c8c1701186b29c16c02b6f1582c9',
         
         'bstack:options': {
             projectName: 'Alarmas',
