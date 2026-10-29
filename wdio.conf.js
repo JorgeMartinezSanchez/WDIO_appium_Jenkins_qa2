@@ -56,7 +56,7 @@ exports.config = {
         'appium:deviceName': 'Google Pixel 7',
         'appium:platformVersion': '13.0',
         'appium:automationName': 'UiAutomator2',
-        'appium:app': 'app/clock.apk',
+        'appium:app': path.join(process.cwd(), 'app/clock.apk'),
         'bstack:options': {
             projectName: 'Alarmas',
             buildName: 'jenkins-build',
