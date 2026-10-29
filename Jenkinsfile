@@ -1,27 +1,32 @@
 pipeline {
     agent any
+
+    tools {
+        nodejs 'NodeJS'
+    }
+
     stages {
-        stage('Checkout') {
+        stage('Build & Test') {
             steps {
-                checkout scm
+                echo 'Instalando dependencias...'
+                sh 'npm ci'
+                echo 'Ejecutando pruebas con WebdriverIO...'
+                sh 'npx wdio run wdio.conf.js'
             }
         }
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm install'
-            }
-        }
-        stage('Run WDIO Tests') {
-            steps {
-                // Inject the credentials into environment variables
-                withCredentials([
-                    string(credentialsId: 'browserstack-username', variable: 'BROWSERSTACK_USERNAME'),
-                    string(credentialsId: 'browserstack-access-key', variable: 'BROWSERSTACK_KEY')
-                ]) {
-                    // Run your WebdriverIO script
-                    sh 'npm run wdio'
-                }
-            }
+    }
+
+    post {
+        always {
+            echo 'Generando y publicando el reporte de Allure...'
+            allure([
+                includeProperties: false,
+                jdk: '',
+                properties: [],
+                reportBuildPolicy: 'ALWAYS',
+                // Ruta corregida para un proyecto Node.js
+                results: [[path: 'allure-results']] 
+            ])
         }
     }
 }
