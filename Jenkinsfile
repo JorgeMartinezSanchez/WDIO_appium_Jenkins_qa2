@@ -1,17 +1,19 @@
 pipeline {
     agent any
-
-    tools {
-        nodejs 'NodeJS'
-    }
+    tools { nodejs 'NodeJS' }
 
     stages {
-        stage('Build & Test') {
+        stage('Build dependencies') {
             steps {
-                echo 'Instalando dependencias...'
                 sh 'npm ci'
-                echo 'Ejecutando pruebas con WebdriverIO...'
-                sh 'npx wdio run wdio.conf.js'
+            }
+        }
+
+        stage('Ejecutar Pruebas en BrowserStack') {
+            steps {
+                browserstack(credentialsId: 'browserstack-credentials') {
+                    sh 'npx wdio run wdio.conf.js'
+                }
             }
         }
     }
