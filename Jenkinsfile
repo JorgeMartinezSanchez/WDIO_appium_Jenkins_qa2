@@ -13,7 +13,7 @@ pipeline {
         stage('Upload App to BrowserStack') {
             steps {
                 sh '''
-                    curl -u "jorgemartnezsnch_AKZfmp:TU_ACCESS_KEY" \
+                    curl -u "jorgemartnezsnch_AKZfmp:UsqY6ykApzLAHio8Q9p4" \
                     -X POST "https://api-cloud.browserstack.com/app-automate/upload" \
                     -F "url=https://www.browserstack.com/app-automate/sample-apps/android/WikipediaSample.apk"
                 '''
