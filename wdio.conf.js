@@ -58,7 +58,7 @@ exports.config = {
         'appium:deviceName': 'Google Pixel 7',
         'appium:platformVersion': '13.0',
         'appium:automationName': 'UiAutomator2',
-        'appium:app': path.join(process.cwd(), 'app/clock.apk'),
+        'appium:app': path.join(process.cwd(), 'app/com.google.android.deskclock_8.0_(756158231)-76007351_minAPI23(nodpi)_apkmirror.com.apk'),
         'bstack:options': {
             projectName: 'Alarmas',
             buildName: 'jenkins-build',
